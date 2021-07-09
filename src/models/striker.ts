@@ -3,7 +3,7 @@ import { Model } from 'sequelize';
 
 interface StrikerAttributes {
   id: number;
-  name: Object[];
+  topScorer: Object[];
   goals: number;
 }
 
@@ -16,7 +16,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
      */
 
     id!: number;
-    name!: Object[];
+    topScorer!: Object[];
     goals!: number;
 
     static associate(models: any) {
@@ -31,7 +31,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
+      topScorer: {
         type: DataTypes.ARRAY(DataTypes.JSON),
         allowNull: false,
       },

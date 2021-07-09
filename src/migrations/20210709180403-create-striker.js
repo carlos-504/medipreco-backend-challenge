@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      topScorer: {
         type: Sequelize.ARRAY,
       },
       goals: {
