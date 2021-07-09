@@ -20,7 +20,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     goals!: number;
 
     static associate(models: any) {
-      // define association here
+      Striker.hasMany(models.Tournament, { foreignKey: 'StrikerId' });
     }
   }
   Striker.init(
