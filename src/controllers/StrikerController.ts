@@ -10,7 +10,7 @@ export default class StrikerController {
 
       return res.send(striker);
     } catch (err) {
-      return res.status(400).send(err);
+      return res.status(400).send({ err });
     }
   }
 
@@ -20,7 +20,7 @@ export default class StrikerController {
 
       return res.send(strikers);
     } catch (err) {
-      return res.status(400).send(err);
+      return res.status(400).send({ err });
     }
   }
 
@@ -32,7 +32,7 @@ export default class StrikerController {
 
       return res.send(striker);
     } catch (err) {
-      return res.status(400).send(err);
+      return res.status(400).send({ err });
     }
   }
 
@@ -46,7 +46,7 @@ export default class StrikerController {
 
       return res.send(striker);
     } catch (err) {
-      return res.status(400).send(err);
+      return res.status(400).send({ err });
     }
   }
 
@@ -58,7 +58,7 @@ export default class StrikerController {
 
       return res.send({ message: 'Successfully delete striker' });
     } catch (err) {
-      return res.status(400).send(err);
+      return res.status(400).send({ err });
     }
   }
 }
