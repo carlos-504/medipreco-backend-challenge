@@ -1,12 +1,21 @@
 import { Request, Response } from 'express';
+import { TournamentAttributes } from '../models/tournament';
 import db from '../models';
 
 const { Tournament, Striker } = db;
 
+interface tournamentInterface extends TournamentAttributes {
+  createdAt: Date;
+  updatedAt: Date;
+  StrikerId: number;
+}
+
 export default class TournamentController {
   static async insert(req: Request, res: Response) {
     try {
-      const tournament = await Tournament.create(req.body);
+      const tournament: Promise<tournamentInterface> = await Tournament.create(
+        req.body
+      );
 
       res.send(tournament);
     } catch (err) {
@@ -28,7 +37,8 @@ export default class TournamentController {
     const { id } = req.params;
 
     try {
-      const tournament = await Tournament.findByPk(id, { include: [Striker] });
+      const tournament: Promise<tournamentInterface> =
+        await Tournament.findByPk(id, { include: [Striker] });
 
       return res.send(tournament);
     } catch (err) {
@@ -42,7 +52,8 @@ export default class TournamentController {
     try {
       await Tournament.update(req.body, { where: { id } });
 
-      const tournament = await Tournament.findByPk(id, { include: [Striker] });
+      const tournament: Promise<tournamentInterface> =
+        await Tournament.findByPk(id, { include: [Striker] });
 
       return res.send(tournament);
     } catch (err) {
@@ -70,9 +81,11 @@ export default class TournamentController {
       const tournament = await Tournament.findAll();
 
       const firstChampions = tournament
-        .map((element: any) => element.first)
+        .map((element: tournamentInterface) => element.first)
         .reduce(
-          (prev: any, curr: number) => ((prev[curr] = ++prev[curr] || 1), prev),
+          (prev: number[], curr: number) => (
+            (prev[curr] = ++prev[curr] || 1), prev
+          ),
           {}
         );
 

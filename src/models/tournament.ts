@@ -1,7 +1,7 @@
 'use strict';
 import { Model } from 'sequelize';
 
-interface TournamentAttributes {
+export interface TournamentAttributes {
   id: number;
   year: string;
   first: string;
