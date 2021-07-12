@@ -107,4 +107,19 @@ export default class StrikerController {
       return res.status(400).send({ err });
     }
   }
+
+  static async topStrikers(req: Request, res: Response): Promise<Response> {
+    try {
+      const findStrikers: Object[] = await Striker.findAll({
+        order: [['goals', 'DESC']],
+        attributes: { exclude: ['id', 'createdAt', 'updatedAt'] },
+      });
+
+      const topStrikers = findStrikers.slice(0, 5);
+
+      return res.send(topStrikers);
+    } catch (err) {
+      return res.status(400).send({ err });
+    }
+  }
 }
