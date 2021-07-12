@@ -1,4 +1,4 @@
-import strikers from '../data/striker';
+import strikers from '../data/strikerData/striker';
 import db from '../models';
 
 export const createStrikers = async (): Promise<void> => {

@@ -2,7 +2,7 @@ const fs = require('fs');
 const csv = require('fast-csv');
 
 module.exports = (file, type) => {
-  let arrayTotal = [];
+  let strikers = [];
 
   return new Promise((resolve, reject) => {
     fs.createReadStream(__dirname + file)
@@ -26,8 +26,8 @@ module.exports = (file, type) => {
           goals: parseInt(data.goals),
         };
 
-        arrayTotal.push(striker);
+        strikers.push(striker);
       })
-      .on('end', () => resolve(arrayTotal));
+      .on('end', () => resolve(strikers));
   });
 };
