@@ -108,4 +108,38 @@ export default class TournamentController {
       return res.status(400).send({ err });
     }
   }
+
+  static async teamMostViceChampion(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
+    try {
+      const tournament = await Tournament.findAll();
+
+      const viceChampions = tournament
+        .map((element: tournamentInterface) => element.second)
+        .reduce(
+          (prev: number[], curr: number) => (
+            (prev[curr] = ++prev[curr] || 1), prev
+          ),
+          {}
+        );
+      const orderChampions = Object.keys(viceChampions)
+        .map((item) => ({
+          team: item,
+          viceTitles: viceChampions[item],
+        }))
+        .sort((a, b) => {
+          if (a.viceTitles > b.viceTitles) return -1;
+          if (a.viceTitles < b.viceTitles) return 1;
+          return 0;
+        });
+
+      const team = orderChampions.slice(0, 1);
+
+      return res.send(...team);
+    } catch (err) {
+      return res.status(400).send({ err });
+    }
+  }
 }

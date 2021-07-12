@@ -12,5 +12,9 @@ router.get(
   '/tournament/champios-with-more-titles',
   TournamentController.championsWithMoreTitles
 );
+router.get(
+  '/tournament/team-most-vice-champions',
+  TournamentController.teamMostViceChampion
+);
 
 export default router;
