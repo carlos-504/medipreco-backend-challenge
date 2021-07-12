@@ -61,4 +61,37 @@ export default class TournamentController {
       return res.status(400).send({ err });
     }
   }
+
+  static async championsWithMoreTitles(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
+    try {
+      const tournament = await Tournament.findAll();
+
+      const firstChampions = tournament
+        .map((element: any) => element.first)
+        .reduce(
+          (prev: any, curr: number) => ((prev[curr] = ++prev[curr] || 1), prev),
+          {}
+        );
+
+      const orderChampions = Object.keys(firstChampions)
+        .map((item) => ({
+          team: item,
+          titles: firstChampions[item],
+        }))
+        .sort((a, b) => {
+          if (a.titles > b.titles) return -1;
+          if (a.titles < b.titles) return 1;
+          return 0;
+        });
+
+      const firstsplaced = orderChampions.slice(0, 2);
+
+      return res.send(firstsplaced);
+    } catch (err) {
+      return res.status(400).send({ err });
+    }
+  }
 }

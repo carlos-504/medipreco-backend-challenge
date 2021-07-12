@@ -8,5 +8,9 @@ router.get('/tournament/list', TournamentController.show);
 router.get('/tournament/index/:id', TournamentController.index);
 router.put('/tournament/update/:id', TournamentController.update);
 router.delete('/tournament/delete/:id', TournamentController.delete);
+router.get(
+  '/tournament/champios-with-more-titles',
+  TournamentController.championsWithMoreTitles
+);
 
 export default router;
