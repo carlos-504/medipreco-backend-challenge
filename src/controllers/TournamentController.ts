@@ -94,15 +94,16 @@ export default class TournamentController {
           team: item,
           titles: firstChampions[item],
         }))
+        .filter((element) => {
+          return element.titles > 1;
+        })
         .sort((a, b) => {
           if (a.titles > b.titles) return -1;
           if (a.titles < b.titles) return 1;
           return 0;
         });
 
-      const firstsplaced = orderChampions.slice(0, 2);
-
-      return res.send(firstsplaced);
+      return res.send(orderChampions);
     } catch (err) {
       return res.status(400).send({ err });
     }
