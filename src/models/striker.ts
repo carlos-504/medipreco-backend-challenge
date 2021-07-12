@@ -1,7 +1,7 @@
 'use strict';
 import { Model } from 'sequelize';
 
-interface StrikerAttributes {
+export interface StrikerAttributes {
   id: number;
   topScorer: Object[];
   goals: number;
