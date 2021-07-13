@@ -3,10 +3,7 @@ import db from '../models';
 
 export const createTournament = async (): Promise<void> => {
   try {
-    const getTournament: Object[] = await tournaments(
-      '/tournamentData.csv',
-      {}
-    );
+    const getTournament: Object[] = await tournaments('/tournamentData.csv');
 
     const findTournaments: Object[] = await db.Tournament.findAll();
 

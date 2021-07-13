@@ -1,7 +1,7 @@
 const fs = require('fs');
 const csv = require('fast-csv');
 
-module.exports = (file, type) => {
+module.exports = (file) => {
   let tournaments = [];
 
   return new Promise((resolve, reject) => {

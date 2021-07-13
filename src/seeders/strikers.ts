@@ -3,7 +3,7 @@ import db from '../models';
 
 export const createStrikers = async (): Promise<void> => {
   try {
-    const getStrikers: Object[] = await strikers('/strikersData.csv', {});
+    const getStrikers: Object[] = await strikers('/strikersData.csv');
 
     const findStrikers: Object[] = await db.Striker.findAll();
 

@@ -1,14 +1,6 @@
 'use strict';
 import { Model } from 'sequelize';
-
-export interface TournamentAttributes {
-  id: number;
-  year: string;
-  first: string;
-  second: string;
-  third: string;
-  fourth: string;
-}
+import { TournamentAttributes } from '../interfaces/tournament';
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class Tournament

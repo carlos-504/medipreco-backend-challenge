@@ -4,11 +4,6 @@ import db from '../models';
 
 const { Striker } = db;
 
-interface strikerInterface extends StrikerAttributes {
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 export default class StrikerController {
   static async insert(req: Request, res: Response): Promise<Response> {
     try {
@@ -76,7 +71,7 @@ export default class StrikerController {
     try {
       const findStrikers = await Striker.findAll();
 
-      findStrikers.map((element: strikerInterface) => {
+      findStrikers.map((element: StrikerAttributes) => {
         strikers.push(...element.topScorer);
       });
 
@@ -127,14 +122,15 @@ export default class StrikerController {
     try {
       const { goals } = req.body;
 
-      if (goals < 1) res.send({ error: 'invalid number of goals' });
+      if (goals < 1)
+        return res.status(400).send({ error: 'invalid number of goals' });
 
-      const strikers: strikerInterface[] = await Striker.findAll({
+      const strikers: StrikerAttributes[] = await Striker.findAll({
         where: { goals },
         attributes: { exclude: ['id', 'createdAt', 'updatedAt'] },
       });
 
-      if (strikers.length === 0) res.status(204).send();
+      if (strikers.length === 0) return res.status(204).send();
 
       return res.send(strikers);
     } catch (err) {

@@ -5,6 +5,8 @@ export interface StrikerAttributes {
   id: number;
   topScorer: Object[];
   goals: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {

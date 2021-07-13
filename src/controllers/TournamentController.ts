@@ -1,19 +1,13 @@
 import { Request, Response } from 'express';
-import { TournamentAttributes } from '../models/tournament';
+import { TournamentAttributes } from '../interfaces/tournament';
 import db from '../models';
 
 const { Tournament, Striker } = db;
 
-interface tournamentInterface extends TournamentAttributes {
-  createdAt: Date;
-  updatedAt: Date;
-  StrikerId: number;
-}
-
 export default class TournamentController {
   static async insert(req: Request, res: Response) {
     try {
-      const tournament: Promise<tournamentInterface> = await Tournament.create(
+      const tournament: Promise<TournamentAttributes> = await Tournament.create(
         req.body
       );
 
@@ -37,7 +31,7 @@ export default class TournamentController {
     const { id } = req.params;
 
     try {
-      const tournament: Promise<tournamentInterface> =
+      const tournament: Promise<TournamentAttributes> =
         await Tournament.findByPk(id, { include: [Striker] });
 
       return res.send(tournament);
@@ -52,7 +46,7 @@ export default class TournamentController {
     try {
       await Tournament.update(req.body, { where: { id } });
 
-      const tournament: Promise<tournamentInterface> =
+      const tournament: Promise<TournamentAttributes> =
         await Tournament.findByPk(id, { include: [Striker] });
 
       return res.send(tournament);
@@ -81,7 +75,7 @@ export default class TournamentController {
       const tournament = await Tournament.findAll();
 
       const firstChampions = tournament
-        .map((element: tournamentInterface) => element.first)
+        .map((element: TournamentAttributes) => element.first)
         .reduce(
           (prev: number[], curr: number) => (
             (prev[curr] = ++prev[curr] || 1), prev
@@ -117,7 +111,7 @@ export default class TournamentController {
       const tournament = await Tournament.findAll();
 
       const viceChampions = tournament
-        .map((element: tournamentInterface) => element.second)
+        .map((element: TournamentAttributes) => element.second)
         .reduce(
           (prev: number[], curr: number) => (
             (prev[curr] = ++prev[curr] || 1), prev
@@ -159,7 +153,7 @@ export default class TournamentController {
         },
       });
 
-      tournaments.map((element: tournamentInterface) => {
+      tournaments.map((element: TournamentAttributes) => {
         const arr = [element.second, element.third, element.fourth];
         allTeams.push(...arr);
       });
