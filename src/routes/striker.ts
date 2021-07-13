@@ -13,5 +13,6 @@ router.get(
   StrikerController.teamWithMoreStrikers
 );
 router.get('/striker/top-strikers', StrikerController.topStrikers);
+router.post('/striker/list-by-goals', StrikerController.listByGoals);
 
 export default router;

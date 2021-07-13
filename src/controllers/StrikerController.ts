@@ -122,4 +122,23 @@ export default class StrikerController {
       return res.status(400).send({ err });
     }
   }
+
+  static async listByGoals(req: Request, res: Response): Promise<Response> {
+    try {
+      const { goals } = req.body;
+
+      if (goals < 1) res.send({ error: 'invalid number of goals' });
+
+      const strikers: strikerInterface[] = await Striker.findAll({
+        where: { goals },
+        attributes: { exclude: ['id', 'createdAt', 'updatedAt'] },
+      });
+
+      if (strikers.length === 0) res.status(204).send();
+
+      return res.send(strikers);
+    } catch (err) {
+      return res.status(400).send({ err });
+    }
+  }
 }
