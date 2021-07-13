@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { TournamentAttributes } from '../interfaces/tournament';
 import db from '../models';
+import generateArray from '../utils/generateArray';
 
 const { Tournament, Striker } = db;
 
@@ -72,30 +73,15 @@ export default class TournamentController {
     res: Response
   ): Promise<Response> {
     try {
-      const tournament = await Tournament.findAll();
+      const tournament: TournamentAttributes[] = await Tournament.findAll();
 
-      const firstChampions = tournament
-        .map((element: TournamentAttributes) => element.first)
-        .reduce(
-          (prev: number[], curr: number) => (
-            (prev[curr] = ++prev[curr] || 1), prev
-          ),
-          {}
-        );
-
-      const orderChampions = Object.keys(firstChampions)
-        .map((item) => ({
-          team: item,
-          titles: firstChampions[item],
-        }))
-        .filter((element) => {
-          return element.titles > 1;
-        })
-        .sort((a, b) => {
-          if (a.titles > b.titles) return -1;
-          if (a.titles < b.titles) return 1;
-          return 0;
-        });
+      const orderChampions = generateArray(
+        tournament,
+        'first',
+        'titles'
+      ).filter((element) => {
+        return element.titles > 1;
+      });
 
       return res.send(orderChampions);
     } catch (err) {
@@ -108,26 +94,9 @@ export default class TournamentController {
     res: Response
   ): Promise<Response> {
     try {
-      const tournament = await Tournament.findAll();
+      const tournament: TournamentAttributes[] = await Tournament.findAll();
 
-      const viceChampions = tournament
-        .map((element: TournamentAttributes) => element.second)
-        .reduce(
-          (prev: number[], curr: number) => (
-            (prev[curr] = ++prev[curr] || 1), prev
-          ),
-          {}
-        );
-      const orderChampions = Object.keys(viceChampions)
-        .map((item) => ({
-          team: item,
-          viceTitles: viceChampions[item],
-        }))
-        .sort((a, b) => {
-          if (a.viceTitles > b.viceTitles) return -1;
-          if (a.viceTitles < b.viceTitles) return 1;
-          return 0;
-        });
+      const orderChampions = generateArray(tournament, 'second', 'titles');
 
       const team = orderChampions.slice(0, 1);
 

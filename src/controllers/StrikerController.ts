@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { StrikerAttributes } from '../models/striker';
 import db from '../models';
+import generateArray from '../utils/generateArray';
 
 const { Striker } = db;
 
@@ -67,33 +68,16 @@ export default class StrikerController {
     req: Request,
     res: Response
   ): Promise<Response> {
-    const strikers: Object[] = [];
     try {
       const findStrikers = await Striker.findAll();
+
+      const strikers: Object[] = [];
 
       findStrikers.map((element: StrikerAttributes) => {
         strikers.push(...element.topScorer);
       });
 
-      const teams = strikers
-        .map((element: any) => element.team)
-        .reduce(
-          (prev: number[], curr: number) => (
-            (prev[curr] = ++prev[curr] || 1), prev
-          ),
-          {}
-        );
-
-      const orderStrikers = Object.keys(teams)
-        .map((item) => ({
-          team: item,
-          strikers: teams[item],
-        }))
-        .sort((a, b) => {
-          if (a.strikers > b.strikers) return -1;
-          if (a.strikers < b.strikers) return 1;
-          return 0;
-        });
+      const orderStrikers = generateArray(strikers, 'team', 'strikers');
 
       const team = orderStrikers.slice(0, 1);
 

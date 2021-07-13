@@ -8,4 +8,5 @@ export interface TournamentAttributes {
   createdAt?: Date;
   updatedAt?: Date;
   StrikerId?: number;
+  column?: string;
 }
