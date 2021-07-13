@@ -1,13 +1,6 @@
 'use strict';
 import { Model } from 'sequelize';
-
-export interface StrikerAttributes {
-  id: number;
-  topScorer: Object[];
-  goals: number;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+import { StrikerAttributes } from '../interfaces/striker';
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class Striker extends Model<StrikerAttributes> implements StrikerAttributes {

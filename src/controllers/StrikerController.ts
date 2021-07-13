@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { StrikerAttributes } from '../models/striker';
+import { StrikerAttributes } from '../interfaces/striker';
 import db from '../models';
 import generateArray from '../utils/generateArray';
 

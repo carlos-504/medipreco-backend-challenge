@@ -1,5 +1,5 @@
 import { TournamentAttributes } from '../interfaces/tournament';
-import { StrikerAttributes } from '../models/striker';
+import { StrikerAttributes } from '../interfaces/striker';
 
 export default (db: any, column: string, place: string) => {
   const champions = db
