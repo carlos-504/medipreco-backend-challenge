@@ -16,5 +16,6 @@ router.get(
   '/tournament/team-most-vice-champions',
   TournamentController.teamMostViceChampion
 );
+router.get('/tournament/top-ranked-teams', TournamentController.topRankedTeams);
 
 export default router;

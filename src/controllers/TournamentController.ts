@@ -142,4 +142,49 @@ export default class TournamentController {
       return res.status(400).send({ err });
     }
   }
+
+  static async topRankedTeams(req: Request, res: Response): Promise<Response> {
+    const allTeams: Object[] = [];
+    try {
+      const tournaments = await Tournament.findAll({
+        attributes: {
+          exclude: [
+            'id',
+            'year',
+            'first',
+            'createdAt',
+            'updatedAt',
+            'StrikerId',
+          ],
+        },
+      });
+
+      tournaments.map((element: tournamentInterface) => {
+        const arr = [element.second, element.third, element.fourth];
+        allTeams.push(...arr);
+      });
+
+      const teams = allTeams.reduce(
+        (prev: any, curr: any) => ((prev[curr] = ++prev[curr] || 1), prev),
+        {}
+      );
+
+      const orderTeams = Object.keys(teams)
+        .map((item) => ({
+          classifications: teams[item],
+          team: item,
+        }))
+        .sort((a, b) => {
+          if (a.classifications > b.classifications) return -1;
+          if (a.classifications < b.classifications) return 1;
+          return 0;
+        });
+
+      const topTeams = orderTeams.slice(0, 5);
+
+      return res.send(topTeams);
+    } catch (err) {
+      return res.status(400).send({ err });
+    }
+  }
 }
