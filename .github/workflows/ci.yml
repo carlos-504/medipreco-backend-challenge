@@ -43,6 +43,5 @@ jobs:
 
       - name: Deploy Swarm Stack
         run: |
-          rsync -ahrvzKO \
-            build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/opt/medipreco
+          rsync -ahrvzKO build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/opt/medipreco
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} node /opt/medipreco/index.js
