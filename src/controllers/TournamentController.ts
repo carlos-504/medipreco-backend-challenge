@@ -5,61 +5,85 @@ import generateArray from '../utils/generateArray';
 
 const { Tournament, Striker } = db;
 
+interface accessObjInterface {
+  [key: string]: string[];
+}
+
 export default class TournamentController {
-  static async insert(req: Request, res: Response) {
+  static async insert(req: Request, res: Response): Promise<void> {
     try {
-      const tournament: Promise<TournamentAttributes> = await Tournament.create(
+      const tournament: TournamentAttributes = await Tournament.create(
         req.body
       );
 
       res.send(tournament);
     } catch (err) {
-      return res.status(400).send({ err });
+      res.status(400).send({ err });
     }
   }
 
-  static async show(req: Request, res: Response): Promise<Response> {
+  static async show(req: Request, res: Response): Promise<void> {
     try {
-      const tournament = await Tournament.findAll({ include: [Striker] });
+      const tournament: TournamentAttributes[] = await Tournament.findAll({
+        include: [Striker],
+      });
 
-      return res.send(tournament);
+      res.send(tournament);
     } catch (err) {
-      return res.status(400).send({ err });
+      res.status(400).send({ err });
     }
   }
 
-  static async index(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
-
+  static async index(req: Request, res: Response): Promise<Response | void> {
     try {
-      const tournament: Promise<TournamentAttributes> =
-        await Tournament.findByPk(id, { include: [Striker] });
+      const { id } = req.params;
+      const tournament: TournamentAttributes = await Tournament.findByPk(id, {
+        include: [Striker],
+      });
 
-      return res.send(tournament);
+      if (!tournament) return res.status(204).send();
+
+      res.send(tournament);
     } catch (err) {
-      return res.status(400).send({ err });
+      res.status(400).send({ err });
     }
   }
 
-  static async update(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
-
+  static async update(req: Request, res: Response): Promise<Response | void> {
     try {
+      const { id } = req.params;
+
+      const tournament: TournamentAttributes = await Tournament.findByPk(id, {
+        include: [Striker],
+      });
+
+      if (!tournament)
+        return res.status(400).send({ error: 'tournament not fount' });
+
       await Tournament.update(req.body, { where: { id } });
 
-      const tournament: Promise<TournamentAttributes> =
-        await Tournament.findByPk(id, { include: [Striker] });
+      const newTournament: TournamentAttributes = await Tournament.findByPk(
+        id,
+        { include: [Striker] }
+      );
 
-      return res.send(tournament);
+      res.send(newTournament);
     } catch (err) {
-      return res.status(400).send({ err });
+      res.status(400).send({ err });
     }
   }
 
   static async delete(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
-
     try {
+      const { id } = req.params;
+
+      const tournament: TournamentAttributes = await Tournament.findByPk(id, {
+        include: [Striker],
+      });
+
+      if (!tournament)
+        return res.status(400).send({ error: 'tournament not fount' });
+
       await Tournament.destroy({ where: { id } });
 
       return res.send({ message: 'Successfully delete striker' });
@@ -71,7 +95,7 @@ export default class TournamentController {
   static async championsWithMoreTitles(
     req: Request,
     res: Response
-  ): Promise<Response> {
+  ): Promise<void> {
     try {
       const tournament: TournamentAttributes[] = await Tournament.findAll();
 
@@ -83,16 +107,16 @@ export default class TournamentController {
         return element.titles > 1;
       });
 
-      return res.send(orderChampions);
+      res.send(orderChampions);
     } catch (err) {
-      return res.status(400).send({ err });
+      res.status(400).send({ err });
     }
   }
 
   static async teamMostViceChampion(
     req: Request,
     res: Response
-  ): Promise<Response> {
+  ): Promise<void> {
     try {
       const tournament: TournamentAttributes[] = await Tournament.findAll();
 
@@ -100,16 +124,16 @@ export default class TournamentController {
 
       const team = orderChampions.slice(0, 1);
 
-      return res.send(...team);
+      res.send(...team);
     } catch (err) {
-      return res.status(400).send({ err });
+      res.status(400).send({ err });
     }
   }
 
-  static async topRankedTeams(req: Request, res: Response): Promise<Response> {
-    const allTeams: Object[] = [];
+  static async topRankedTeams(req: Request, res: Response): Promise<void> {
+    const allTeams: string[] = [];
     try {
-      const tournaments = await Tournament.findAll({
+      const tournaments: TournamentAttributes[] = await Tournament.findAll({
         attributes: {
           exclude: [
             'id',
@@ -122,13 +146,15 @@ export default class TournamentController {
         },
       });
 
-      tournaments.map((element: TournamentAttributes) => {
+      tournaments.map((element) => {
         const arr = [element.second, element.third, element.fourth];
         allTeams.push(...arr);
       });
 
       const teams = allTeams.reduce(
-        (prev: any, curr: any) => ((prev[curr] = ++prev[curr] || 1), prev),
+        (prev: Record<string, number>, curr: string) => {
+          return (prev[curr] = ++prev[curr] || 1), prev;
+        },
         {}
       );
 
@@ -145,9 +171,9 @@ export default class TournamentController {
 
       const topTeams = orderTeams.slice(0, 5);
 
-      return res.send(topTeams);
+      res.send(topTeams);
     } catch (err) {
-      return res.status(400).send({ err });
+      res.status(400).send({ err });
     }
   }
 }

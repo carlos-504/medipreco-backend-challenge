@@ -1,5 +1,8 @@
 {
-  "min": "inválid number, try a number greater than zero",
+  "min": "invalid number, try a number greater than zero",
   "max": "number of goals too high, try a smaller one",
-  "int": "this fields only accept integer values"
+  "int": "this field only accept integer values",
+  "minYear": "invalid year, try a year greater than 1959",
+  "maxYear": "invalid year, try other year",
+  "notEmpty": "fill this field"
 }

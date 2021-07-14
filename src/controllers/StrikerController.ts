@@ -25,7 +25,7 @@ export default class StrikerController {
 
   static async show(req: Request, res: Response): Promise<void> {
     try {
-      const strikers: StrikerAttributes = await Striker.findAll();
+      const strikers: StrikerAttributes[] = await Striker.findAll();
 
       res.send(strikers);
     } catch (err) {
@@ -116,7 +116,7 @@ export default class StrikerController {
 
   static async topStrikers(req: Request, res: Response): Promise<void> {
     try {
-      const findStrikers: Object[] = await Striker.findAll({
+      const findStrikers: StrikerAttributes[] = await Striker.findAll({
         order: [['goals', 'DESC']],
         attributes: { exclude: ['id', 'createdAt', 'updatedAt'] },
       });

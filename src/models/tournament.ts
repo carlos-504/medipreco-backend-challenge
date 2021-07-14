@@ -1,6 +1,7 @@
 'use strict';
 import { Model } from 'sequelize';
 import { TournamentAttributes } from '../interfaces/tournament';
+import { minYear, maxYear, notEmpty } from '../utils/validationsMessage.json';
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class Tournament
@@ -35,22 +36,52 @@ module.exports = (sequelize: any, DataTypes: any) => {
       year: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          min: {
+            args: [1959],
+            msg: minYear,
+          },
+          max: {
+            args: [new Date().getFullYear()],
+            msg: maxYear,
+          },
+        },
       },
       first: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: notEmpty,
+          },
+        },
       },
       second: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: notEmpty,
+          },
+        },
       },
       third: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: notEmpty,
+          },
+        },
       },
       fourth: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: notEmpty,
+          },
+        },
       },
     },
     {
