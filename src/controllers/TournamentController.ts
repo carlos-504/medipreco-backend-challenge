@@ -5,10 +5,6 @@ import generateArray from '../utils/generateArray';
 
 const { Tournament, Striker } = db;
 
-interface accessObjInterface {
-  [key: string]: string[];
-}
-
 export default class TournamentController {
   static async insert(req: Request, res: Response): Promise<void> {
     try {

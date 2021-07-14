@@ -1,14 +1,15 @@
 import { TournamentAttributes } from '../interfaces/tournament';
 import { StrikerAttributes } from '../interfaces/striker';
 
-export default (db: any, column: string, place: string) => {
+export default (
+  db: TournamentAttributes[] | StrikerAttributes[],
+  column: string,
+  place: string
+) => {
   const champions = db
-    .map(
-      (element: TournamentAttributes | StrikerAttributes | any) =>
-        element[column]
-    )
+    .map((element: any) => element[column])
     .reduce(
-      (prev: number[], curr: number) => (
+      (prev: Record<string, number>, curr: string) => (
         (prev[curr] = ++prev[curr] || 1), prev
       ),
       {}

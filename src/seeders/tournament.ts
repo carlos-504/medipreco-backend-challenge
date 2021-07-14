@@ -1,15 +1,17 @@
+import { TournamentAttributes } from '../interfaces/tournament';
 import tournaments from '../data/tournamentData/tournament';
 import db from '../models';
 
 export const createTournament = async (): Promise<void> => {
   try {
-    const getTournament: Object[] = await tournaments('/tournamentData.csv');
-
-    const findTournaments: Object[] = await db.Tournament.findAll();
-
-    const Alltournaments = findTournaments.map(
-      (element: any) => element.dataValues
+    const getTournament: TournamentAttributes[] = await tournaments(
+      '/tournamentData.csv'
     );
+
+    const findTournaments: TournamentAttributes[] =
+      await db.Tournament.findAll();
+
+    const Alltournaments = findTournaments.map((element) => element);
 
     const newTournaments = getTournament.map((element, index) => {
       return {

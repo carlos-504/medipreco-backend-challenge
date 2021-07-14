@@ -1,13 +1,16 @@
+import { StrikerAttributes } from '../interfaces/striker';
 import strikers from '../data/strikerData/striker';
 import db from '../models';
 
 export const createStrikers = async (): Promise<void> => {
   try {
-    const getStrikers: Object[] = await strikers('/strikersData.csv');
+    const getStrikers: StrikerAttributes[] = await strikers(
+      '/strikersData.csv'
+    );
 
-    const findStrikers: Object[] = await db.Striker.findAll();
+    const findStrikers: StrikerAttributes[] = await db.Striker.findAll();
 
-    const allStrikers = findStrikers.map((element: any) => element.dataValues);
+    const allStrikers = findStrikers.map((element) => element);
 
     if (allStrikers.length == 0) {
       getStrikers.map((element) => {

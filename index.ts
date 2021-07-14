@@ -18,4 +18,4 @@ db.sequelize
     routes(app);
     app.listen(port, () => console.log(`Server is running on port ${port}`));
   })
-  .catch((err: Error): void => console.log(err));
+  .catch((err: Error) => console.log(err));
