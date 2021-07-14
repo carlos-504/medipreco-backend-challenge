@@ -1,4 +1,5 @@
 {
   "min": "inválid number, try a number greater than zero",
-  "max": "number of goals too high, try a smaller one"
+  "max": "number of goals too high, try a smaller one",
+  "int": "this fields only accept integer values"
 }

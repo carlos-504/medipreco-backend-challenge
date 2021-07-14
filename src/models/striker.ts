@@ -1,7 +1,7 @@
 'use strict';
 import { Model } from 'sequelize';
 import { StrikerAttributes } from '../interfaces/striker';
-import { max, min } from '../utils/validationsMessage.json';
+import { max, min, int } from '../utils/validationsMessage.json';
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class Striker extends Model<StrikerAttributes> implements StrikerAttributes {
@@ -35,7 +35,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          isInt: true,
+          isInt: {
+            msg: int,
+          },
           min: {
             args: [1],
             msg: min,
