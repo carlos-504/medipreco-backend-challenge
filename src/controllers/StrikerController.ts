@@ -5,10 +5,43 @@ import generateArray from '../utils/generateArray';
 
 const { Striker } = db;
 
+interface topScorerInterface {
+  player: string;
+  team: string;
+}
+
 export default class StrikerController {
   static async insert(req: Request, res: Response): Promise<Response> {
     try {
-      const striker = await Striker.create(req.body);
+      const topScorer: topScorerInterface[] = req.body.topScorer;
+
+      topScorer.map((element) => {
+        if (typeof element.player !== 'string') {
+          return res
+            .status(400)
+            .send({ error: 'player field only accept string type' });
+        }
+
+        if (typeof element.team !== 'string') {
+          return res
+            .status(400)
+            .send({ error: 'team field only accept string type' });
+        }
+
+        if (element.player.length < 3 || element.player.length > 20) {
+          return res
+            .status(400)
+            .send({ error: 'invalid number of characters on player field' });
+        }
+
+        if (element.team.length < 3 || element.team.length > 20) {
+          return res
+            .status(400)
+            .send({ error: 'invalid number of characters on team field' });
+        }
+      });
+
+      const striker: StrikerAttributes = await Striker.create(req.body);
 
       return res.send(striker);
     } catch (err) {
