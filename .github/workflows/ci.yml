@@ -44,6 +44,6 @@ jobs:
       - name: Deploy Swarm Stack
         run: |
           rsync -ahrvzKO \
-            --exclude='/src' --exclude='/index.ts' --exclude='/.github' \
+            --exclude='/src' --exclude='/index.ts' --exclude='/.github' --exclude='/.git' \
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/opt/medipreco
           ssh -f ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} node /opt/medipreco/index.js
