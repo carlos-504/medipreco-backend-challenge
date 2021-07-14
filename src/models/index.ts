@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-const path = require('path');
+import path from 'path';
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
@@ -19,11 +19,14 @@ if (config.use_env_variable) {
     config
   );
 }
+const currExt = path.extname(__dirname + __filename);
+
+const ext = (): string => (currExt === '.ts' ? '.ts' : '.js');
 
 fs.readdirSync(__dirname)
   .filter((file: string) => {
     return (
-      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.ts'
+      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === ext()
     );
   })
   .forEach((file: any) => {
