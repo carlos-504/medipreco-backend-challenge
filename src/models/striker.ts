@@ -1,6 +1,6 @@
 'use strict';
 import { Model } from 'sequelize';
-import { StrikerAttributes } from '../interfaces/striker';
+import { StrikerAttributes, topScorerInterface } from '../interfaces/striker';
 import { max, min, int } from '../utils/validationsMessage.json';
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -12,7 +12,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
      */
 
     id!: number;
-    topScorer!: Object[];
+    topScorer!: topScorerInterface[];
     goals!: number;
 
     static associate(models: any) {

@@ -1,6 +1,6 @@
 export interface StrikerAttributes {
   id: number;
-  topScorer: Object[];
+  topScorer: topScorerInterface[];
   goals: number;
   createdAt?: Date;
   updatedAt?: Date;
