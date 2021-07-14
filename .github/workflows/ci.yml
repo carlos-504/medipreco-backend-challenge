@@ -43,5 +43,7 @@ jobs:
 
       - name: Deploy Swarm Stack
         run: |
-          rsync -ahrvzKO build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/opt/medipreco
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} node /opt/medipreco/index.js
+          rsync -ahrvzKO \
+            --exclude='/src' --exclude='/index.ts' --exclude='/.github' \
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/opt/medipreco
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} bash -c "nohup node /opt/medipreco/index.js &;disown"
