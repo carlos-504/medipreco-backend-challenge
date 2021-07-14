@@ -1,51 +1,25 @@
 import { Request, Response } from 'express';
 import { StrikerAttributes } from '../interfaces/striker';
+import { topScorerInterface } from '../interfaces/striker';
+import customValidations from '../utils/customValidations';
 import db from '../models';
 import generateArray from '../utils/generateArray';
 
 const { Striker } = db;
 
-interface topScorerInterface {
-  player: string;
-  team: string;
-}
-
 export default class StrikerController {
-  static async insert(req: Request, res: Response): Promise<Response> {
+  static async insert(req: Request, res: Response): Promise<Response | void> {
     try {
       const topScorer: topScorerInterface[] = req.body.topScorer;
 
-      topScorer.map((element) => {
-        if (typeof element.player !== 'string') {
-          return res
-            .status(400)
-            .send({ error: 'player field only accept string type' });
-        }
+      const valid = customValidations(topScorer, res);
 
-        if (typeof element.team !== 'string') {
-          return res
-            .status(400)
-            .send({ error: 'team field only accept string type' });
-        }
-
-        if (element.player.length < 3 || element.player.length > 20) {
-          return res
-            .status(400)
-            .send({ error: 'invalid number of characters on player field' });
-        }
-
-        if (element.team.length < 3 || element.team.length > 20) {
-          return res
-            .status(400)
-            .send({ error: 'invalid number of characters on team field' });
-        }
-      });
+      if (!valid) return;
 
       const striker: StrikerAttributes = await Striker.create(req.body);
-
-      return res.send(striker);
+      res.send(striker);
     } catch (err) {
-      return res.status(400).send({ err });
+      res.status(400).send({ err });
     }
   }
 
@@ -71,10 +45,15 @@ export default class StrikerController {
     }
   }
 
-  static async update(req: Request, res: Response): Promise<Response> {
+  static async update(req: Request, res: Response): Promise<Response | void> {
     const { id } = req.params;
-
     try {
+      const topScorer: topScorerInterface[] = req.body.topScorer;
+
+      const valid = customValidations(topScorer, res);
+
+      if (!valid) return;
+
       await Striker.update(req.body, { where: { id } });
 
       const striker = await Striker.findByPk(id);

@@ -6,3 +6,8 @@ export interface StrikerAttributes {
   updatedAt?: Date;
   column?: string;
 }
+
+export interface topScorerInterface {
+  player: string;
+  team: string;
+}
