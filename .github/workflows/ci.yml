@@ -34,7 +34,8 @@ jobs:
 
       - name: Deploy Medipreco
         run: |
+          NODE=/home/carlosh/.nvm/versions/node/v14.17.2/bin/node
           rsync -ahrvzKO \
             --delete-excluded --filter='P /.env' --exclude='/src' --exclude='/index.ts' --exclude='/.github' --exclude='/.git' --exclude='/.tsconfig.json' \
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/opt/medipreco
-          ssh -f ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} node /opt/medipreco/build/index.js
+          ssh -f ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} $NODE /opt/medipreco/build/index.js
