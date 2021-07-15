@@ -24,18 +24,18 @@ A aplicação é executada a partir de comandos npm do NodeJS. O projeto usa 3 c
     
 
 ## Estrutura de diretórios
-		inframonitor
+		Medipreco
 			|
 			|-- .github / workflows (arquivos de CI)
 			|
-      |-- src (arquivos TypeScript da aplicação)
-        |-- config (Arqui de configuração do banco de dados)                
-        |-- controllers (Camada controller da aplicação)        
+      			|-- src (arquivos TypeScript da aplicação)
+        			|-- config (Arqui de configuração do banco de dados)                
+        			|-- controllers (Camada controller da aplicação)        
 				|-- data (dados dos banco criados a partir do csv)				
-			  |-- interfaces (interfaces dos modelos)
+			  	|-- interfaces (interfaces dos modelos)
 				|-- models (Modelos das tabelas do banco de dados)
-        |-- routes (Endpoints da aplicação)                
-        |-- seeders (Arquivos de inserção em massa)
+        			|-- routes (Endpoints da aplicação)                
+        			|-- seeders (Arquivos de inserção em massa)
 				|-- utils (Recursos sendo utilizados em mais de um lugar da aplicação)
 			|-- index.ts (Arquivo de inicialização)
 			|-- package.json
