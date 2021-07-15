@@ -66,7 +66,7 @@ npm install
 
 4. Crie um banco de dados (Postgres) em sua máquina com nome 'brazilian_champions'
 ```
-CREATE DATABASE tempo_telecom;
+CREATE DATABASE brazilian_champions;
 ```
 5. Para iniciar a aplicação
 ```
