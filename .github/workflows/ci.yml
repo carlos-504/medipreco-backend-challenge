@@ -41,7 +41,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy Swarm Stack
+      - name: Deploy Medipreco
         run: |
           rsync -ahrvzKO \
             --delete-excluded --filter='P /.env' --exclude='/src' --exclude='/index.ts' --exclude='/.github' --exclude='/.git' --exclude='/.tsconfig.json' \
