@@ -26,13 +26,6 @@ jobs:
         with:
           node-version: '12'
 
-      - uses: actions/cache@v2
-        id: npm-cache
-        with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
-
       - name: Install dependecies
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm install
