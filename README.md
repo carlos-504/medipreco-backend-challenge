@@ -27,8 +27,8 @@ A aplicação é executada a partir de comandos npm do NodeJS. O projeto usa 3 c
 		Medipreco
 			|
 			|-- .github / workflows (arquivos de CI)
-			|
       			|-- src (arquivos TypeScript da aplicação)
+			|
         			|-- config (Arqui de configuração do banco de dados)                
         			|-- controllers (Camada controller da aplicação)        
 				|-- data (dados dos banco criados a partir do csv)				
