@@ -72,7 +72,7 @@ CREATE DATABASE brazilian_champions;
 ```
 npm start
 ```
-6. Em caso de erro, verifique se credenciais do arquivo config.json e compátivel com os da sua máquina
+6. Em caso de erro, verifique se credenciais do arquivo config.js e compátivel com os da sua máquina
 
 ## REST API
 O sistema conta com uma API para realizar os CRUDS. A API segue o protocolo Rest de comunicação, 
