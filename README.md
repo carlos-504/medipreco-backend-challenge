@@ -108,3 +108,7 @@ onde é possível realizar uma comunicação com o servidor para obter, incluir 
 ### Link do projeto em produção
 
 http://34.139.184.209
+
+### Arquivos importantes
+
+Use o Insomnia_2021-07-15.json em seu ambiente de testes para criar o diretórios com os endpoint
