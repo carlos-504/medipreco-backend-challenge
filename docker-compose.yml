@@ -7,16 +7,9 @@ services:
       dockerfile: ./Dockerfile
       args:
         - NODE_ENV=${ENVIRONMENT}
+        - PORT_API=${PORT_API}
     image: backend
     volumes:
       - ./:/app
     ports:
       - ${PORT_API}:${PORT_API}
-    extra_hosts:
-      host.docker.internal: host-gateway
-    networks:
-      - myNetWork
-networks:
-  myNetWork:
-    name: host
-    external: true

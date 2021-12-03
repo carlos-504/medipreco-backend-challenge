@@ -9,7 +9,10 @@ RUN apk add --no-cache --upgrade bash
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
-EXPOSE 3003
+ARG PORT_API=3003
+ENV PORT_API $PORT_API
+
+EXPOSE $PORT_API
 
 RUN mkdir -p /app/node_modules && chown -R node:node /app
 WORKDIR /app
