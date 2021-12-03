@@ -39,4 +39,4 @@ jobs:
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/home/ubuntu/api
 
       - name: Up service
-        run: ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} /usr/local/bin/docker-compose -f /home/ubuntu/api/docker-compose.yml up -d
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} /usr/local/bin/docker-compose -f /home/ubuntu/api/docker-compose.yml up -d
