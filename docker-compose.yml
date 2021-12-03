@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  backend:
+    container_name: api-express
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        - NODE_ENV=${ENVIRONMENT}
+    image: backend
+    volumes:
+      - ./:/app
+    ports:
+      - ${PORT_API}:${PORT_API}
+    extra_hosts:
+      host.docker.internal: host-gateway
+    networks:
+      - myNetWork
+networks:
+  myNetWork:
+    name: host
+    external: true

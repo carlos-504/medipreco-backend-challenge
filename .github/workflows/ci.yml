@@ -36,4 +36,4 @@ jobs:
         run: |
           rsync -ahrvzKO \
             --delete-excluded --filter='P /ecosystem.config.js' --exclude='/src' --exclude='/index.ts' --exclude='/.github' --exclude='/.git' --exclude='/.tsconfig.json' \
-            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/opt/medipreco
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/home/ubuntu/api
