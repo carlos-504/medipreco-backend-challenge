@@ -37,3 +37,6 @@ jobs:
           rsync -ahrvzKO \
             --delete-excluded --filter='P /ecosystem.config.js' --filter='P /.env' --exclude='/src' --exclude='/index.ts' --exclude='/.github' --exclude='/.git' --exclude='/.tsconfig.json' \
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/home/ubuntu/api
+
+      - name: Up service
+        run: ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} docker-compose -f /home/ubuntu/api/docker-compose.yml up -d
