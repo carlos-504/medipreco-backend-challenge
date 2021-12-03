@@ -22,12 +22,10 @@ npm start
 * Para criar os arquivos JavaScript através dos arquivos TypeScript do diretório
 ```
 npm run build
-
 ```
 * Para executar a aplicação gerada no build
  ```
 npm run server
-
 ```
     
 
@@ -72,7 +70,7 @@ CREATE DATABASE brazilian_champions;
 ```
 npm start
 ```
-6. Em caso de erro, verifique se credenciais do arquivo config.js e compátivel com os da sua máquina
+6. Em caso de erro, verifique se credenciais do arquivo config.js são compátiveis com os da sua máquina
 
 ## REST API
 O sistema conta com uma API para realizar os CRUDS. A API segue o protocolo Rest de comunicação, 
