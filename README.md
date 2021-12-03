@@ -105,7 +105,7 @@ onde é possível realizar uma comunicação com o servidor para obter, incluir 
 
 ### Link do projeto em produção
 
-http://34.139.184.209
+http://ec2-34-207-192-251.compute-1.amazonaws.com/
 
 ### Arquivos importantes
 
