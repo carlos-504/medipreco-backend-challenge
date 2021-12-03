@@ -35,5 +35,5 @@ jobs:
       - name: Deploy Medipreco
         run: |
           rsync -ahrvzKO \
-            --delete-excluded --filter='P /ecosystem.config.js' --exclude='/src' --exclude='/index.ts' --exclude='/.github' --exclude='/.git' --exclude='/.tsconfig.json' \
+            --delete-excluded --filter='P /ecosystem.config.js' --filter='P /.env' --exclude='/src' --exclude='/index.ts' --exclude='/.github' --exclude='/.git' --exclude='/.tsconfig.json' \
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/home/ubuntu/api
